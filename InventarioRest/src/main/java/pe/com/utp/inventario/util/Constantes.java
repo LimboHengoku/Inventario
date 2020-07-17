@@ -53,4 +53,9 @@ public class Constantes {
 	public static final String ID_UBICACION = "idUbicacion";
 	public static final String ID_USUARIO = "idUsuario";
 	public static final String ID_USUARIO_UBI = "idUsuUbi";
+	
+	/** **/
+	public static final String FLAG_REGISTRAR_USUARIO = "R";
+	public static final String FLAG_ACTUALIZAR_USUARIO = "A";
+
 }

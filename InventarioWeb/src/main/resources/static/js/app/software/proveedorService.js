@@ -4,7 +4,12 @@ angular.module('myApp').factory('ProveedorService', ProveedorService);
 
 function ProveedorService($http, $q){
 	
-	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+//	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+//	var urlListaProveedor = URL_PRINCIPAL  + '/proveedor/listar';
+//	var urlRegistrarProveedor = URL_PRINCIPAL + '/proveedor/registrar';
+//	var urlActualizarProveedor = URL_PRINCIPAL + '/proveedor/actualizar';
+	
+	var URL_PRINCIPAL = 'http://localhost:8080';
 	var urlListaProveedor = URL_PRINCIPAL  + '/proveedor/listar';
 	var urlRegistrarProveedor = URL_PRINCIPAL + '/proveedor/registrar';
 	var urlActualizarProveedor = URL_PRINCIPAL + '/proveedor/actualizar';

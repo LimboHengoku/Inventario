@@ -4,7 +4,8 @@ angular.module('myApp').factory('DispositivoService', DispositivoService);
 
 function DispositivoService($http, $q) {
 
-	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+//	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+	var URL_PRINCIPAL = 'http://localhost:8080';
 	var urlListarDispositivo = URL_PRINCIPAL + "/dispositivo/listar";
 	var urlListaTipoYdominio = URL_PRINCIPAL + '/tipoYDominio/listar';
 	var urlListaUbicaciones = URL_PRINCIPAL + '/ubicacion/listar';

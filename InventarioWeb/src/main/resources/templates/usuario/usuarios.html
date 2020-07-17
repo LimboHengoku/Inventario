@@ -35,6 +35,9 @@
 <link href="../css/Usuarios/Usuarios_01.css" rel="stylesheet">
 <!--===============================================================================================-->
 <!-- Estilos de Modificar INI -->
+
+
+  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link
 	href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152092/smartwizard/smart_wizard.min.css"
 	rel="stylesheet" type="text/css" />
@@ -426,7 +429,7 @@
 							data-toggle="tooltip"><i class="fa" id="ic_edit"
 								ng-click="uCtrl.abrirVentanaEditar(u)">&#xf14b;</i></a> <a href=""
 							class="detalle" title="Ver Detalle" data-toggle="tooltip"><i
-								class="fa" id="ic_detalle">&#xf05a;</i></a> <a href=""
+								class="fa" id="ic_detalle" ng-click="uCtrl.verDetalleUsuario(u)">&#xf05a;</i></a> <a href=""
 							class="vinc_dispos" title="Ver Dispositivos vinculados"
 							data-toggle="tooltip"><i class="fas" id="ic_disvin"
 								ng-click="uCtrl.verDispositivosVinculados(u);">&#xf108;</i></a> <a
@@ -569,7 +572,7 @@
 											<!-- Listado de Tipo de Dispositivo -->
 											<select class="browser-default custom-select" id="sel_sede"
 												ng-options="s.nomSede for s in uCtrl.sedes track by s.idSede"
-												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.sedeBean">
+												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.sedeBean">
 											</select>
 											<!--  Listado de Tipo de Dispositivo -->
 										</div>
@@ -580,7 +583,7 @@
 											<!-- Listado de Tipo de Dispositivo -->
 											<select class="browser-default custom-select" id="sel_divi"
 												ng-options="di.nomDivision for di in uCtrl.divisiones track by di.idDivision"
-												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.divisionBean">
+												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.divisionBean">
 											</select>
 											<!--  Listado de Tipo de Dispositivo -->
 										</div>
@@ -589,7 +592,7 @@
 											<!-- Listado de Tipo de Dispositivo -->
 											<select class="browser-default custom-select" id="sel_ofic"
 												ng-options="o.nomOficina for o in uCtrl.oficinas track by o.idOficina"
-												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.oficinaBean">
+												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.oficinaBean">
 											</select>
 											<!--  Listado de Tipo de Dispositivo -->
 										</div>
@@ -637,7 +640,7 @@
 			<div class="modal-content">
 				<div class="modal-header"
 					style="background: rgba(244, 35, 35, 0.53);">
-					<h5 class="modal-title" id="lbl_titulo_mant" style="color: white;"></h5>
+					<h5 class="modal-title" id="lbl_titulo_edit" style="color: white;"></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -660,13 +663,13 @@
 									<div class="row">
 										<div class="col-lg-5">
 											<label for="txt_nombre">Nombres:</label>&nbsp;<br> <input
-												type="text" class="form-control" id="txt_nombre"
+												type="text" class="form-control" id="txt_nombre_edit"
 												placeholder="Nombre"
 												ng-model="uCtrl.dataUser.usuario.nombres">
 										</div>
 										<div class="col-lg-5">
 											<label for="txt_apellido1">Apellido 1:</label>&nbsp;<br>
-											<input type="text" class="form-control" id="txt_apellido1"
+											<input type="text" class="form-control" id="txt_apellido1_edit"
 												placeholder="Apellido 1"
 												ng-model="uCtrl.dataUser.usuario.ape1">
 										</div>
@@ -674,13 +677,13 @@
 									<div class="row">
 										<div class="col-lg-5">
 											<label for="txt_apellido1">Apellido 2:</label>&nbsp;<br>
-											<input type="text" class="form-control" id="txt_apellido2"
+											<input type="text" class="form-control" id="txt_apellido2_edit"
 												placeholder="Apellido 2"
 												ng-model="uCtrl.dataUser.usuario.ape2">
 										</div>
 										<div class="col-lg-5">
 											<label for="txt_usua_red">Usuario de red:</label>&nbsp;<br>
-											<input type="text" class="form-control" id="txt_usua_red"
+											<input type="text" class="form-control" id="txt_usua_red_edit"
 												placeholder="Usuario Red"
 												ng-model="uCtrl.dataUser.usuario.usuRed">
 										</div>
@@ -693,7 +696,7 @@
 										<div class="col-lg-5">
 											<label for="exampleInputEmail3">Estado:</label>&nbsp;<br>
 											<!-- Listado de Tipo de Dispositivo -->
-											<select class="browser-default custom-select" id="sel_estado"
+											<select class="browser-default custom-select" id="sel_estado_edit"
 												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.condicionBean.idCondicion">
 												<option value="" disabled selected>Seleccionar una
 													opción</option>
@@ -705,7 +708,7 @@
 										<div class="col-lg-5">
 											<label for="exampleInputEmail3">Sede:</label>&nbsp;<br>
 											<!-- Listado de Tipo de Dispositivo -->
-											<select class="browser-default custom-select" id="sel_sede"
+											<select class="browser-default custom-select" id="sel_sede_edit"
 												ng-options="s.nomSede for s in uCtrl.sedes track by s.idSede"
 												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.sedeBean">
 											</select>
@@ -716,7 +719,7 @@
 										<div class="col-lg-5">
 											<label for="exampleInputEmail3">División:</label>&nbsp;<br>
 											<!-- Listado de Tipo de Dispositivo -->
-											<select class="browser-default custom-select" id="sel_divi"
+											<select class="browser-default custom-select" id="sel_divi_edit"
 												ng-options="di.nomDivision for di in uCtrl.divisiones track by di.idDivision"
 												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.divisionBean">
 											</select>
@@ -725,7 +728,7 @@
 										<div class="col-lg-5">
 											<label for="exampleInputEmail3">Oficina:</label>&nbsp;<br>
 											<!-- Listado de Tipo de Dispositivo -->
-											<select class="browser-default custom-select" id="sel_ofic"
+											<select class="browser-default custom-select" id="sel_ofic_edit"
 												ng-options="o.nomOficina for o in uCtrl.oficinas track by o.idOficina"
 												ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.ubicacionBean.oficinaBean">
 											</select>
@@ -739,7 +742,7 @@
 									<div class="row">
 										<div class="form-group">
 											<label for="exampleInputEmail1">Dominio:</label> 
-											<select class="browser-default custom-select" id="sel_dom"
+											<select class="browser-default custom-select" id="sel_dom_edit"
 											ng-model="uCtrl.dataUser.usuario.usuarioUbicacion.dominioBean.idDominio">
 												<option value="" disabled selected>Seleccionar una
 													opción</option>
@@ -769,6 +772,7 @@
 
 
 
+     <div th:include="dialog/movimiento/usuario/detalleDispositivos.html" th:remove="tag"></div>
 	<!-- ==================================== Boostrap JavaScript ===================== -->
 	<script src="../jquery/jquery_3_4_1.min.js"></script>
 	<!--===============================================================================================-->

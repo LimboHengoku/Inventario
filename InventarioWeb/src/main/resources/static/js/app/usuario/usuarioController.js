@@ -13,6 +13,7 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 
 	// Objetos
 	self.dataUser = {};
+	self.datosRel = {};
 
 	// Listas
 	self.usuarios = [];
@@ -38,6 +39,7 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 	self.registrarUsuario = registrarUsuario;
 	self.actualizarUsuario = actualizarUsuario;
 	self.limpiar = limpiar;
+	self.verDetalleUsuario = verDetalleUsuario;
 
 	// inicializar metodos
 	self.initLoad();
@@ -52,7 +54,6 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 
 	function listarUsuarios() {
 		UsuarioService.listarUsuarios(headers).then(function(response) {
-			console.log(response);
 			self.usuarios = response.usuarios;
 		});
 	}
@@ -98,28 +99,13 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 				nombres : data.nombres,
 				ape1 : data.ape1,
 				ape2 : data.ape2,
-				usuRed : data.usuRed,
-				usuarioUbicacion : {
-					ubicacionBean : {
-						sedeBean : data.usuarioUbicacionBeans[0].ubicacionBean.sedeBean,
-						divisionBean : data.usuarioUbicacionBeans[0].ubicacionBean.divisionBean,
-						oficinaBean : data.usuarioUbicacionBeans[0].ubicacionBean.oficinaBean
-					},
-					condicionBean:{
-						idCondicion:data.usuarioUbicacionBeans[0].condicionBean.idCondicion
-					},
-					dominioBean:{
-						idDominio:data.usuarioUbicacionBeans[0].dominioBean.idDominio
-					}
-				},
-				idDivision : data.usuarioUbicacionBeans[0].ubicacionBean.divisionBean.idDivision,
-				idOficina : data.usuarioUbicacionBeans[0].ubicacionBean.oficinaBean.idOficina,
-				idSede : data.usuarioUbicacionBeans[0].ubicacionBean.sedeBean.idSede
-			}
+				usuRed : data.usuRed
+			},
+			flag : 'A'
 		};
 
-		$('#lbl_titulo_mant').text("Editar Usuario");
-		
+		$('#lbl_titulo_edit').text("Editar Usuario");
+
 		$("#Popup_edi2").modal({
 			keyboard : true,
 			show : true
@@ -128,47 +114,105 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 
 	function registrarUsuario() {
 
-		var id = 0;
-
-		if (self.dataUser.usuario.idUsuario == null) {
-			console.log("sin id");
-			id = 0;
-		} else {
-			console.log("con id");
-			id = self.dataUser.usuario.idUsuario;
-		}
-
-		console.log(id);
-
 		console.log(self.dataUser);
 
-		 UsuarioService.registrarUsuario(headers,self.dataUser,{}).then(
-			function(response){
-				console.log(response);
-			 });
-		 
-		 $("#Popup_modif2").modal('hide');
-		 self.listarUsuarios();
-	}
-	
-	function actualizarUsuario() {
+		var params = {
+			usuario : {
+				idUsuario : 0,
+				nombres : self.dataUser.usuario.nombres,
+				ape1 : self.dataUser.usuario.ape1,
+				ape2 : self.dataUser.usuario.ape2,
+				usuRed : self.dataUser.usuario.usuRed
+			},
+			flag : 'R'
+		};
+		
+		var paramsUbi = {
+				idSede:self.dataUser.usuario.usuarioUbicacion.sedeBean.idSede,
+				idDivision:self.dataUser.usuario.usuarioUbicacion.divisionBean.idDivision,
+				idOficina:self.dataUser.usuario.usuarioUbicacion.oficinaBean.idOficina
+			};
+		
+		console.log(params);
+		console.log(paramsUbi);
+		
+		
 
-		 UsuarioService.registrarUsuario(headers,self.dataUser,{}).then(
-			function(response){
+		UsuarioService.registrarUsuario(headers, params, {}).then(
+			function(response) {
+				
 				console.log(response);
-			 });
-		 
-		 $("#Popup_edi2").modal({
-				keyboard : true,
-				show : true
-			});
-		 
-		 $("#Popup_edi2").modal('hide');
-		 self.listarUsuarios();
+				
+				if(response.codigoRespuesta == '0'){
+					
+					var paramsUbi = {
+						idSede:self.dataUser.usuario.usuarioUbicacion.sedeBean.idSede,
+						idDivision:self.dataUser.usuario.usuarioUbicacion.divisionBean.idDivision,
+						idOficina:self.dataUser.usuario.usuarioUbicacion.oficinaBean.idOficina
+					};
+		
+					UsuarioService.registrarUbi(headers,paramsUbi,{}).then(
+						function(responseUbi){
+							
+							console.log(responseUbi);
+							
+							var paramsUsuUbi = {
+									idCondicion:self.dataUser.usuario.usuarioUbicacion.condicionBean.idCondicion,
+									idDominio:self.dataUser.usuario.usuarioUbicacion.dominioBean.idDominio,
+									idUbicacion:responseUbi.codigoGenerado,
+									idUsuario:response.codigoGenerado
+							};
+							
+							if(responseUbi.codigoRespuesta == '0'){
+								UsuarioService.registrarUsuarioUbi(headers,paramsUsuUbi,{}).then(
+										function(responseUsuUbi){
+											
+											alert(responseUsuUbi.mensajeRespuesta);
+											
+											$("#Popup_modif2").modal('hide');
+											
+										}
+									);
+							}
+							
+						}
+					);
+					
+				}
+				
+			}
+		);
+		
+		self.listarUsuarios();
+	}
+
+	function actualizarUsuario() {
+		console.log(self.dataUser)
+		// UsuarioService.registrarUsuario(headers,self.dataUser,{}).then(
+		// function(response){
+		// console.log(response);
+		// });
+
+		// $("#Popup_edi2").modal('hide');
+		// self.listarUsuarios();
 	}
 
 	function verDispositivosVinculados(data) {
 		console.log(data);
+	}
+	
+	function verDetalleUsuario(data){
+		console.log(data);
+		
+		self.datosRel = data;
+		
+		$('#lbl_titulo_detalleUsuario').text("Datos Relacionados");
+		
+		
+		$("#detalleUsuario").modal({
+			keyboard:true,
+			show:true
+		});
 	}
 
 	function limpiar() {

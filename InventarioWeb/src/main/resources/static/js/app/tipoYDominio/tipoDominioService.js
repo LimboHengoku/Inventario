@@ -4,7 +4,8 @@ angular.module('myApp').factory('TipoYDominioService', TipoYDominioService);
 
 function TipoYDominioService($http, $q){
 	
-	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+//	var URL_PRINCIPAL = 'http://192.168.1.11:8080/InventarioRest';
+	var URL_PRINCIPAL = 'http://localhost:8080';
 	
 	var urlListaTipoYdominio = URL_PRINCIPAL + '/tipoYDominio/listar';
 	var urlRegistrarTipoYdominio = URL_PRINCIPAL + '/tipoYDominio/registrar';

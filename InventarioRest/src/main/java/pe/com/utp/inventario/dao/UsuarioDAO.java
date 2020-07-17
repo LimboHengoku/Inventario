@@ -18,6 +18,9 @@ public interface UsuarioDAO {
 	public Map<String,String> registrarUsuario(
 			String idTransaccion, Usuario u );
 	
+	public Map<String,String> actualizarUsuario(
+			String idTransaccion, Usuario u );
+	
 	public Map<String,String> registrarUbicacionUsuario(
 			String idTransaccion, Map<String, String> params);
 

@@ -119,4 +119,16 @@ public class PaginasController {
 		
 	} 
 	
+	@RequestMapping(value = "movimientos/dispositivo/vincular",method = RequestMethod.GET)
+	public ModelAndView vincularDispositivo() {
+		ModelAndView model = new ModelAndView();
+		model.addObject("usuario", 
+				SecurityContextHolder.getContext().getAuthentication().getName());
+		
+		
+		model.setViewName("movimientos/vincular_Dispositivo");
+		return model;
+		
+	}
+	
 }

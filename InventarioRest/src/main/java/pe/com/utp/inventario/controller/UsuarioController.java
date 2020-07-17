@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import pe.com.utp.inventario.request.NuevoUsuarioRequest;
 import pe.com.utp.inventario.request.RegistrarUsuarioRequest;
+import pe.com.utp.inventario.request.RegistrarUsuarioUbicacionRequest;
 import pe.com.utp.inventario.response.ListaRolResponse;
 import pe.com.utp.inventario.response.ListaUsuarioResponse;
 import pe.com.utp.inventario.response.RegistrarUsuarioResponse;
+import pe.com.utp.inventario.response.RegistrarUsuarioUbicacionResponse;
 import pe.com.utp.inventario.service.UsuarioService;
 import pe.com.utp.inventario.util.Constantes;
 
@@ -70,27 +73,47 @@ public class UsuarioController implements Serializable {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
-	
+
 	@PostMapping(value = "registrar", headers = Constantes.HEADER_JSON)
-	public ResponseEntity<?> registrarOActualizarUsuario(
-			@RequestBody RegistrarUsuarioRequest request){
-		
+	public ResponseEntity<?> registrarUsuario(@RequestBody NuevoUsuarioRequest request) {
+
 		RegistrarUsuarioResponse response = new RegistrarUsuarioResponse();
-		
+
 		try {
-			
+
 			SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyHHmm");
 			Date fechaSistema = new Date();
 			String idTrans = formato.format(fechaSistema);
-			
-			response = usuarioService.registrarUsuario(idTrans, request);
-			
+
+			response = usuarioService.registrarUsuarioV2(idTrans, request);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<>(response, HttpStatus.OK);
-		
+
+	}
+
+	@PostMapping(value = "ubicacion/registrar", headers = Constantes.HEADER_JSON)
+	public ResponseEntity<?> registrarUsuariobicacion(@RequestBody RegistrarUsuarioUbicacionRequest request) {
+
+		RegistrarUsuarioUbicacionResponse response = new RegistrarUsuarioUbicacionResponse();
+
+		try {
+
+			SimpleDateFormat formato = new SimpleDateFormat("ddMMyyyyHHmm");
+			Date fechaSistema = new Date();
+			String idTrans = formato.format(fechaSistema);
+
+			response = usuarioService.registrarUsuarioUbicacion(idTrans, request);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+
 	}
 
 }

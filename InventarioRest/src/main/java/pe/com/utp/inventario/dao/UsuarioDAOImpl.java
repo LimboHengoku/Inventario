@@ -15,15 +15,22 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import pe.com.utp.inventario.bean.AntivirusBean;
 import pe.com.utp.inventario.bean.CondicionBean;
+import pe.com.utp.inventario.bean.CpuBean;
+import pe.com.utp.inventario.bean.DispositivoBean;
+import pe.com.utp.inventario.bean.DispositivoUsuarioBean;
 import pe.com.utp.inventario.bean.DivisionBean;
 import pe.com.utp.inventario.bean.DominioBean;
+import pe.com.utp.inventario.bean.EstadoBean;
 import pe.com.utp.inventario.bean.OficinaBean;
 import pe.com.utp.inventario.bean.SedeBean;
+import pe.com.utp.inventario.bean.TipoDispositivoBean;
 import pe.com.utp.inventario.bean.UbicacionBean;
 import pe.com.utp.inventario.bean.UsuarioBean;
 import pe.com.utp.inventario.bean.UsuarioUbicacionBean;
 import pe.com.utp.inventario.entities.Condicion;
+import pe.com.utp.inventario.entities.DispositivoUsuario;
 import pe.com.utp.inventario.entities.Dominio;
 import pe.com.utp.inventario.entities.Logueo;
 import pe.com.utp.inventario.entities.Ubicacion;
@@ -72,8 +79,11 @@ public class UsuarioDAOImpl implements UsuarioDAO, Serializable {
 					if (!u.getUsuarioUbicacions().isEmpty()) {
 
 						List<UsuarioUbicacionBean> listaUbiUsu = new ArrayList<>();
+						
 
 						for (UsuarioUbicacion ub : u.getUsuarioUbicacions()) {
+							
+							List<DispositivoUsuarioBean> listaDispoUsu = new ArrayList<>();
 
 							UsuarioUbicacionBean ubBean = new UsuarioUbicacionBean();
 							ubBean.setIdUsuUbi(ub.getIdUsuUbi());
@@ -115,11 +125,57 @@ public class UsuarioDAOImpl implements UsuarioDAO, Serializable {
 							DominioBean dominioBean = new DominioBean();
 							dominioBean.setIdDominio(ub.getDominio().getIdDominio());
 							dominioBean.setNomDominio(ub.getDominio().getNomDominio());
+							
+							if(!ub.getDispositivoUsuarios().isEmpty()) {
+
+								for(DispositivoUsuario du : ub.getDispositivoUsuarios()) {
+									DispositivoUsuarioBean duBean = new DispositivoUsuarioBean();
+									duBean.setIdDisUsu(du.getIdDisUsu());
+									
+									TipoDispositivoBean tipoDispoBean = new TipoDispositivoBean();
+									tipoDispoBean.setIdTipodispositivo(du.getDispositivo().getTipoDispositivo().getIdTipodispositivo());
+									tipoDispoBean.setNomDispositivo(du.getDispositivo().getTipoDispositivo().getNomDispositivo());
+									
+									EstadoBean estadoBean = new EstadoBean();
+									estadoBean.setIdEstado(du.getDispositivo().getEstado().getIdEstado());
+									estadoBean.setNomEstado(du.getDispositivo().getEstado().getNomEstado());
+									
+									DispositivoBean dispoBean = new DispositivoBean();
+									dispoBean.setIdDispositivo(du.getDispositivo().getIdDispositivo());
+									dispoBean.setTipoDispositivoBean(tipoDispoBean);
+									dispoBean.setEstadoBean(estadoBean);
+									dispoBean.setMarca(du.getDispositivo().getMarca());
+									dispoBean.setModelo(du.getDispositivo().getModelo());
+									dispoBean.setSerie(du.getDispositivo().getSerie());
+									dispoBean.setCodBarras(du.getDispositivo().getCodBarras());
+									dispoBean.setObservacion(du.getDispositivo().getObservacion());
+									dispoBean.setFecMod(du.getDispositivo().getFecMod());
+									
+									CpuBean cpBean = new CpuBean();
+									cpBean.setIdDispositivo(du.getDispositivo().getCpu().getIdDispositivo());
+									cpBean.setProcesador(du.getDispositivo().getCpu().getProcesador());
+									cpBean.setNomCpu(du.getDispositivo().getCpu().getNomCpu());
+									
+									AntivirusBean aBean = new AntivirusBean();
+									aBean.setIdAntivirus(du.getDispositivo().getCpu().getAntivirus().getIdAntivirus());
+									aBean.setMarca(du.getDispositivo().getCpu().getAntivirus().getMarca());
+									
+									cpBean.setAntivirusBean(aBean);
+									dispoBean.setCpuBean(cpBean);
+									duBean.setDispositivoBean(dispoBean);
+									
+									listaDispoUsu.add(duBean);
+								}
+								
+							}
+							
 
 							ubBean.setCondicionBean(condicionBean);
 							ubBean.setDominioBean(dominioBean);
 
 							ubBean.setUbicacionBean(ubiBean);
+							ubBean.setDispositivoUsuarioBeans(listaDispoUsu);
+							
 							listaUbiUsu.add(ubBean);
 							bean.setUsuarioUbicacionBeans(listaUbiUsu);
 						}
@@ -185,15 +241,13 @@ public class UsuarioDAOImpl implements UsuarioDAO, Serializable {
 	public Map<String, String> registrarUsuario(String idTransaccion, Usuario u) {
 
 		Map<String, String> out = new HashMap<>();
-		
-		System.out.println("usuario : " + u.getIdUsuario());
 
 		try {
 
 			String sql = "from Usuario x where x.usuRed ='" + u.getUsuRed() + "'";
 
 			List<Usuario> reg = em.createQuery(sql).getResultList();
-			
+
 			System.out.println("reg usuario : " + reg.size());
 
 			if (reg.isEmpty()) {
@@ -206,16 +260,10 @@ public class UsuarioDAOImpl implements UsuarioDAO, Serializable {
 
 			} else {
 
-				if (u.getIdUsuario() != 0) {
-
-					em.merge(u);
-
-					out.put(Constantes.CODIGO_GENERADO, String.valueOf(u.getIdUsuario()));
-					out.put(Constantes.CODIGO_RESPUESTA, Constantes.VALOR_CODIGO_REG_ACT);
-					out.put(Constantes.MENSAJE_RESPUESTA, Constantes.VALOR_MENSAJE_REG_ACT);
-
-				}
-
+				out.put(Constantes.CODIGO_GENERADO, "0");
+				out.put(Constantes.CODIGO_RESPUESTA, Constantes.VALOR_CODIGO_REG_EXISTE);
+				out.put(Constantes.MENSAJE_RESPUESTA, Constantes.VALOR_MENSAJE_REG_EXISTE);
+				
 			}
 
 		} catch (Exception e) {
@@ -278,6 +326,43 @@ public class UsuarioDAOImpl implements UsuarioDAO, Serializable {
 
 		return out;
 
+	}
+
+	@Override
+	public Map<String, String> actualizarUsuario(String idTransaccion, Usuario u) {
+
+		Map<String, String> out = new HashMap<>();
+		
+		try {
+
+			String sql = "from Usuario u where u.idUsuario = " + u.getIdUsuario();
+			
+			List<Usuario> reg = em.createQuery(sql).getResultList();
+			
+			if(!reg.isEmpty()) {
+
+				em.merge(u);
+
+				out.put(Constantes.CODIGO_GENERADO, String.valueOf(u.getIdUsuario()));
+				out.put(Constantes.CODIGO_RESPUESTA, Constantes.VALOR_CODIGO_REG_ACT);
+				out.put(Constantes.MENSAJE_RESPUESTA, Constantes.VALOR_MENSAJE_REG_ACT);
+
+			}else {
+
+				out.put(Constantes.CODIGO_GENERADO, "0");
+				out.put(Constantes.CODIGO_RESPUESTA, Constantes.VALOR_CODIGO_REG_NO_ENCONTRADO);
+				out.put(Constantes.MENSAJE_RESPUESTA, Constantes.VALOR_MENSAJE_REG_NO_ENCONTRADO);
+				
+			}
+			
+		} catch (Exception e) {
+			out.put(Constantes.CODIGO_GENERADO, "0");
+			out.put(Constantes.CODIGO_RESPUESTA, Constantes.VALOR_CODIGO_ERROR);
+			out.put(Constantes.MENSAJE_RESPUESTA, e.getMessage() + " : " + e);
+			e.printStackTrace();
+		}
+
+		return out;
 	}
 
 }
