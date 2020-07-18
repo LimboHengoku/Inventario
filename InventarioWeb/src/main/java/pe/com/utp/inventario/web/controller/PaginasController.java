@@ -4,6 +4,7 @@ import java.net.InetAddress;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -119,12 +120,12 @@ public class PaginasController {
 		
 	} 
 	
-	@RequestMapping(value = "movimientos/dispositivo/vincular",method = RequestMethod.GET)
-	public ModelAndView vincularDispositivo() {
+	@RequestMapping(value = "movimientos/usuario/dispositivo={codigoUsuario}",method = RequestMethod.GET)
+	public ModelAndView vincularDispositivo(@PathVariable("codigoUsuario") int codigoUsuario) {
 		ModelAndView model = new ModelAndView();
 		model.addObject("usuario", 
 				SecurityContextHolder.getContext().getAuthentication().getName());
-		
+		System.out.println("codigoUsuario : "+ codigoUsuario);
 		
 		model.setViewName("movimientos/vincular_Dispositivo");
 		return model;

@@ -199,6 +199,7 @@ function UsuarioController($scope, $filter, $window, $http, $location,
 
 	function verDispositivosVinculados(data) {
 		console.log(data);
+		window.open('/movimientos/usuario/dispositivo/'+data.idUsuario, '_parent'); 
 	}
 	
 	function verDetalleUsuario(data){

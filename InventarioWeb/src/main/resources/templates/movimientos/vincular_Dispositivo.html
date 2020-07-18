@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8">
     <title></title>
     <!-- estilos del menu -->
     <!-- Custom fonts for this template-->
-    <link href="Css/Index/Template/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/Index/Template/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
-    <link href="Css/Index/Template/sb-admin-2.min.css" rel="stylesheet">
-    <link href="Css/Index/style_index.css" rel="stylesheet">
+    <link href="../../css/Index/Template/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../css/Index/style_index.css" rel="stylesheet">
     <!-- fin estilos del menu -->
-    <link rel="stylesheet" type="text/css" href="Boostrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../boostrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <!--Estilos del Table filter-->
@@ -19,7 +19,7 @@
     <link href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css" rel="stylesheet">
     <!--===============================================================================================-->
-    <link href="Css/Vincular_Dispos/Vincular_dis_01.css" rel="stylesheet">
+    <link href="../../css/Vincular_Dispos/Vincular_dis_01.css" rel="stylesheet">
     <!--===============================================================================================-->
     <!--===============================================================================================-->
     <!-- Estilos de Modificar INI -->
@@ -34,9 +34,10 @@
       <ul class="navbar-nav bg-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" 
+        	th:href="@{/inicio}">
           <div class="sidebar-brand-icon">
-            <i><img src="Imagenes/logo_utp_3.png" alt="" id="logo_utp"></i>
+            <i><img src="../../imagenes/logo_utp_3.png" alt="" id="logo_utp"></i>
           </div>
           <div class="sidebar-brand-text mx-1"><h6>Universidad Tecnológica del Perú</h6></div>
         </a>
@@ -45,7 +46,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" th:href="@{/inicio}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
         </li>
@@ -67,10 +68,10 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Equipos:</h6>
-              <a class="collapse-item" href="Categorias.html">Tipos & Dominios</a>
-              <a class="collapse-item" href="">SO/Antivirus y otros</a>
-              <a class="collapse-item" href="">Dispositivos</a>
-              <a class="collapse-item" href="">Componentes</a>
+              <a class="collapse-item" href="/equipos/tipos">Tipos & Dominios</a>
+              <a class="collapse-item" href="#">SO/Antivirus y otros</a>
+              <a class="collapse-item" href="/equipos/dispositivos">Dispositivos</a>
+              <a class="collapse-item" href="#">Componentes</a>
             </div>
           </div>
         </li>
@@ -85,9 +86,9 @@
           <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Movimientos:</h6>
-              <a class="collapse-item" href="">Usuarios</a>
-              <a class="collapse-item" href="">Dispositivos</a>
-              <a class="collapse-item" href="">Componentes</a>
+              <a class="collapse-item" href="/movimientos/usuario">Usuarios</a>
+              <a class="collapse-item" href="#">Dispositivos</a>
+              <a class="collapse-item" href="#">Componentes</a>
             </div>
           </div>
         </li>
@@ -120,7 +121,7 @@
               <h6 class="collapse-header">Software:</h6>
               <a class="collapse-item" href="">Inventario</a>
               <a class="collapse-item" href="">Histórico</a>
-              <a class="collapse-item" href="">Proveedores</a>
+              <a class="collapse-item" href="/software/proveedor">Proveedores</a>
               <a class="collapse-item" href="">Software</a>
             </div>
           </div>
@@ -895,7 +896,7 @@
 
 
     <!-- ==================================== Boostrap JavaScript ===================== -->
-    <script src="jquery/jquery_3_4_1.min.js"></script>
+    <script src="../../jquery/jquery_3_4_1.min.js"></script>
   <!--===============================================================================================-->
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
@@ -907,17 +908,17 @@
           <!-- Iconos fast -->
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--JS del menu-->
-    <script src="JavaScript/Index/sb-admin-2.min.js"></script>
-    <script src="JavaScript/Index/sb-admin-2.js"></script>
+    <script src="../../javaScript/Index/sb-admin-2.min.js"></script>
+    <script src="../../javaScript/Index/sb-admin-2.js"></script>
     <!--Fin JS del menu-->
     <!--===============================================================================================-->
     <!--===============================================================================================-->
-    <script src="Boostrap/js/popper.js"></script>
-    <script src="Boostrap/js/bootstrap.min.js"></script>
-    <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../boostrap/js/popper.js"></script>
+    <script src="../../boostrap/js/bootstrap.min.js"></script>
+    <script src="../../boostrap/js/bootstrap.bundle.min.js"></script>
     <!-- ==================================== Boostrap JavaScript ===================== -->
     <!--===============================================================================================-->
-    <script src="JavaScript/Vincular_Dispos/Vincular_dis_01.js"></script>
+    <script src="../../javaScript/Vincular_Dispos/Vincular_dis_01.js"></script>
     <!--===============================================================================================-->
     <script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1581152197/smartwizard/jquery.smartWizard.min.js"></script>
 

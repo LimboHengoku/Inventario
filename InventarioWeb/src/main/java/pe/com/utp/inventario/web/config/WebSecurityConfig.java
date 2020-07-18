@@ -66,7 +66,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter{
 		.antMatchers("/software/proveedor").hasAnyAuthority(roles)
 		.antMatchers("/equipos/datosRelacionados").hasAnyAuthority(roles)
 		.antMatchers("/movimientos/usuario").hasAnyAuthority(roles)
-		.antMatchers("/movimientos/dispositivo/vincular").hasAnyAuthority(roles)
+		.antMatchers("/movimientos/usuario/dispositivo/{codigoUsuario}").hasAnyAuthority(roles)
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()
