@@ -20,6 +20,7 @@
 		<java.version>1.8</java.version>
 	</properties>
 
+
 	<dependencies>
 
 		<dependency>
@@ -64,37 +65,37 @@
 		</dependency>
 		
 
-		<dependency>
-			<groupId>pe.com.utp.inventario</groupId>
-			<artifactId>InventarioDto</artifactId>
-			<version>1.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hibernate</groupId>
-					<artifactId>ejb3-persistence</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.persistence</groupId>
-					<artifactId>javax.persistence-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.annotation</groupId>
-					<artifactId>javax.annotation-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.transaction</groupId>
-					<artifactId>javax.transaction-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.activation</groupId>
-					<artifactId>javax.activation-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate-annotations</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>pe.com.utp.inventario</groupId> -->
+<!-- 			<artifactId>InventarioDto</artifactId> -->
+<!-- 			<version>1.0</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.hibernate</groupId> -->
+<!-- 					<artifactId>ejb3-persistence</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>javax.persistence</groupId> -->
+<!-- 					<artifactId>javax.persistence-api</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>javax.annotation</groupId> -->
+<!-- 					<artifactId>javax.annotation-api</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>javax.transaction</groupId> -->
+<!-- 					<artifactId>javax.transaction-api</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>javax.activation</groupId> -->
+<!-- 					<artifactId>javax.activation-api</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 				<exclusion> -->
+<!-- 					<groupId>org.hibernate</groupId> -->
+<!-- 					<artifactId>hibernate-annotations</artifactId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
 
 
 	</dependencies>
