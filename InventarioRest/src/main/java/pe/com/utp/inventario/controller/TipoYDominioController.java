@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import pe.com.utp.inventario.request.RegistrarTipoYDominioRequest;
 import pe.com.utp.inventario.response.GenericoResponse;
 import pe.com.utp.inventario.response.ListaTipoYDominioResponse;
@@ -24,9 +25,7 @@ import pe.com.utp.inventario.util.Constantes;
 
 @RestController
 @RequestMapping(value = "/tipoYDominio")
-@CrossOrigin(origins = "*", methods = 
-{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE}
-)
+@CrossOrigin(origins = "*")
 public class TipoYDominioController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +33,7 @@ public class TipoYDominioController implements Serializable {
 	@Autowired
 	private TipoYDominioService tipoService;
 	
+	@ApiOperation(value = "lista")
 	@GetMapping(value = "listar" , headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> listarTiposYDominios(){
 		
@@ -55,6 +55,7 @@ public class TipoYDominioController implements Serializable {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "registrar")
 	@PostMapping(value = "registrar" , headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> registrarTipoYDominio(@RequestBody RegistrarTipoYDominioRequest req){
 		

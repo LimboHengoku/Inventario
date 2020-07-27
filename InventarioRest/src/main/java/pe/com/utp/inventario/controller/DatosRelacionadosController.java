@@ -9,14 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import pe.com.utp.inventario.response.ListarAntivirusResponse;
 import pe.com.utp.inventario.response.ListarProcesadoresResponse;
 import pe.com.utp.inventario.service.DatosRelacionadosService;
 import pe.com.utp.inventario.util.Constantes;
 
 @RestController
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE })
+@CrossOrigin(origins = "*")
+@Api(value="datos relaxionados")
 public class DatosRelacionadosController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +26,7 @@ public class DatosRelacionadosController implements Serializable {
 	@Autowired
 	private DatosRelacionadosService datosRelacionadosService;
 
+	@ApiOperation(value = "lista")
 	@GetMapping(value = "antivirus/listar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> listarAntivirus() {
 
@@ -42,6 +45,7 @@ public class DatosRelacionadosController implements Serializable {
 
 	}
 
+	@ApiOperation(value = "lista")
 	@GetMapping(value = "procesadores/listar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> listarProcesadores() {
 

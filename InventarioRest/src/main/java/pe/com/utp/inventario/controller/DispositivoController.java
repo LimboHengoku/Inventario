@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import pe.com.utp.inventario.request.DetalleDispositivoRequest;
 import pe.com.utp.inventario.request.ListaDispositivoRequest;
 import pe.com.utp.inventario.request.RegistrarDispositivoRequest;
@@ -27,9 +29,8 @@ import pe.com.utp.inventario.util.Constantes;
 
 @RestController
 @RequestMapping(value = "/dispositivo")
-@CrossOrigin(origins = "*", methods = 
-{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE}
-)
+@CrossOrigin(origins = "*")
+@Api(value ="dispositivos")
 public class DispositivoController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class DispositivoController implements Serializable{
 	@Autowired
 	private DispositivoService dispositivoService;
 	
-	
+	@ApiOperation(value = "lista")
 	@GetMapping(value = "listar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> listarDispositivos(){
 		
@@ -64,6 +65,7 @@ public class DispositivoController implements Serializable{
 		
 	}
 	
+	@ApiOperation(value = "consulta")
 	@PostMapping(value = "consultar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> consultarDispositivos(@RequestBody 
 			ListaDispositivoRequest req){
@@ -87,6 +89,7 @@ public class DispositivoController implements Serializable{
 		
 	}
 	
+	@ApiOperation(value = "registra")
 	@PostMapping(value = "registrar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> registrarDispositivo(@RequestBody 
 			RegistrarDispositivoRequest req){
@@ -109,7 +112,7 @@ public class DispositivoController implements Serializable{
 		
 	}
 	
-	
+	@ApiOperation(value = "actualizar")
 	@PostMapping(value = "actualizar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> actualizarDispositivo(@RequestBody 
 			RegistrarDispositivoRequest req){
@@ -132,6 +135,7 @@ public class DispositivoController implements Serializable{
 		
 	}
 	
+	@ApiOperation(value = "detalle")
 	@PostMapping(value = "detalle", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> obtenerDetalleDispositivo(@RequestBody 
 			DetalleDispositivoRequest req){

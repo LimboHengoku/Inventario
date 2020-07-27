@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import pe.com.utp.inventario.response.ListaEstadoResponse;
 import pe.com.utp.inventario.service.EstadosService;
 import pe.com.utp.inventario.util.Constantes;
 
 @RestController
 @RequestMapping(value = "/estado")
-@CrossOrigin(origins = "*", methods = 
-{RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE}
-)
+@CrossOrigin(origins = "*")
 public class EstadoController implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +28,7 @@ public class EstadoController implements Serializable{
 	@Autowired
 	private EstadosService estadoService;
 	
+	@ApiOperation(value = "lista")
 	@GetMapping(value = "listar", headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> listarEstados(){
 		

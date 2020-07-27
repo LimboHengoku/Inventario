@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import pe.com.utp.inventario.request.LoginRequest;
 import pe.com.utp.inventario.response.LoginResponse;
 import pe.com.utp.inventario.service.UsuarioService;
@@ -19,6 +21,7 @@ import pe.com.utp.inventario.util.Constantes;
 
 @RestController
 @RequestMapping(value = "/")
+@Api
 public class LoginController implements Serializable {
 	
 private static final long serialVersionUID = 1L;
@@ -26,7 +29,7 @@ private static final long serialVersionUID = 1L;
 	@Autowired
 	private UsuarioService usuarioService;
 
-	
+	@ApiOperation(value = "login")
 	@PostMapping(value = "login",headers = Constantes.HEADER_JSON)
 	public ResponseEntity<?> login(@RequestBody LoginRequest req){
 		
